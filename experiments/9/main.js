@@ -116,10 +116,10 @@ window.addEventListener("resize", onResize);
 function loop() {
   vrControls.update();
   renderer.render(scene, camera);
-  // requestAnimationFrame(loop);
+  requestAnimationFrame(loop);
 }
 
-setInterval(loop, 50);
+loop();
 
 //if vr device is available, overwrite our renderer with a stereoscopic version
 function attachVRHeadset(vrs) {
