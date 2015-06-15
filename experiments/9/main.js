@@ -9,6 +9,7 @@ renderer.shadowMapType = THREE.PCFSoftShadowMap;
 document.body.appendChild( renderer.domElement );
 
 var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 10000 );
+
 var scene = new THREE.Scene();
 
 var objects = {};
@@ -77,16 +78,19 @@ function createScene() {
 
 	scene.add( light );
 
-	objects.bulb = new THREE.Mesh(
-		new THREE.TorusKnotGeometry(2, 0.5, 20, 20), 
+	var bulb = new THREE.Mesh(
+		new THREE.TorusKnotGeometry(worldSize / 4, worldSize / 4 / 2, 60, 60), 
 		new THREE.MeshNormalMaterial( { color: 0xFFFF00 } ) 
 	);
 	// bulb.rotation.x = 90 * (Math.PI / 180);
 
-	objects.bulb.position.z = -50;
+	bulb.position.z = -(worldSize - 50);
 
-	scene.add(objects.bulb);
+	scene.add(bulb);
 
+
+	objects.room = room;
+	objects.bulb = bulb;
 
 }
 
