@@ -64,8 +64,6 @@ THREE.VRRenderer = function(renderer, hmd) {
     self.render = function(scene, camera) {
         var cameraLeft = camera.clone();
         var cameraRight = camera.clone();
-        viewElement.children[0].children[0].add(cameraLeft);
-        viewElement.children[0].children[0].add(cameraRight);
         cameraLeft.projectionMatrix = self.FovToProjection(self.fovLeft, true, camera.near, camera.far);
         cameraRight.projectionMatrix = self.FovToProjection(self.fovRight, true, camera.near, camera.far);
         var right = new THREE.Vector3(1, 0, 0);
