@@ -43,15 +43,6 @@ function createScene() {
 		}),
 	];
 
-	// var room_wallpaper = new THREE.MeshLambertMaterial({
-	// 	color: 0xFF0000,
-	// 	side: THREE.BackSide
-	// });
-
-	// for(var i = 0; i < 6; i++){
-	// 	roomTextures.push(room_wallpaper);
-	// }
-
 	var room = new THREE.Mesh(
 		new THREE.BoxGeometry(
 			worldSize,
@@ -61,8 +52,6 @@ function createScene() {
 		new THREE.MeshFaceMaterial(roomTextures)
 	);
 
-	room.position.x = 0;
-	room.position.y = 0;
 	room.position.z = 250;
 
 	scene.add(room);
@@ -83,14 +72,12 @@ function createScene() {
 	scene.add( light );
 
 	var bulb = new THREE.Mesh(
-		new THREE.BoxGeometry(worldSize / 20, worldSize / 20, worldSize / 20), 
+		new THREE.BoxGeometry(worldSize / 10, worldSize / 10, worldSize / 20), 
 		new THREE.MeshNormalMaterial( { color: 0xFFFF00 } ) 
 	);
 	// bulb.rotation.x = 90 * (Math.PI / 180);
 
-	bulb.position.x = 0;
-	bulb.position.y = 0;
-	bulb.position.z = 0;
+	bulb.position.z = 750;
 
 	scene.add(bulb);
 
@@ -127,6 +114,9 @@ function loop() {
   vrControls.update();
   renderer.render(scene, camera);
   requestAnimationFrame(loop);
+
+  objects.bulb.rotation.z += (Math.Pi * 2) / 180;
+  objects.bulb.rotation.x += (Math.Pi * 2) / 180;
 }
 
 loop();
