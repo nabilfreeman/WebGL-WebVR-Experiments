@@ -71,4 +71,4 @@ function loop() {
   // requestAnimationFrame(loop);
 }
 
-setInterval(loop, 50);
+// setInterval(loop, 50);
