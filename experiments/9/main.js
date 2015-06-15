@@ -81,10 +81,14 @@ function createScene() {
 	scene.add( light );
 
 	var bulb = new THREE.Mesh(
-		new THREE.TorusKnotGeometry(worldSize / 10, worldSize / 10 / 2, 60, 60), 
+		new THREE.TorusKnotGeometry(worldSize / 40, worldSize / 40 / 2, 60, 60), 
 		new THREE.MeshNormalMaterial( { color: 0xFFFF00 } ) 
 	);
 	// bulb.rotation.x = 90 * (Math.PI / 180);
+
+	bulb.position.x = 0;
+	bulb.position.y = 0;
+	bulb.position.z = 0;
 
 	scene.add(bulb);
 
