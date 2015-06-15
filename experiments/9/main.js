@@ -15,6 +15,8 @@ var objects = {};
 
 //if vr device is available, overwrite our renderer with a stereoscopic version
 function attachVRHeadset(vrs) {
+	console.log("vr mode");
+
 	for (var i = 0; i < vrs.length; ++i) {
 		if (vrs[i] instanceof HMDVRDevice) {
 			vrHMD = vrs[i];
