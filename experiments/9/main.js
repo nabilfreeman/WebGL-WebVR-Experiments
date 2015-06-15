@@ -106,10 +106,10 @@ function onFullscreen() {
   // vrEffect.setFullScreen(true);
 }
 
-function onResize() {
-  renderer.setSize(window.innerWidth, window.innerHeight);
-}
-window.addEventListener("resize", onResize);
+// function onResize() {
+//   renderer.setSize(window.innerWidth, window.innerHeight);
+// }
+// window.addEventListener("resize", onResize);
 
 function loop() {
   vrControls.update();
