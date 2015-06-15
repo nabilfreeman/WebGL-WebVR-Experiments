@@ -1,7 +1,7 @@
 var worldSize = 1000;
 
 var renderer = new THREE.WebGLRenderer();
-renderer.setClearColor( 0x008cff );
+renderer.setClearColor( 0x000000 );
 renderer.setPixelRatio( window.devicePixelRatio );
 renderer.setSize( window.innerWidth, window.innerHeight );
 renderer.shadowMapEnabled = true;
@@ -14,6 +14,28 @@ var scene = new THREE.Scene();
 var objects = {};
 
 function createScene() {
+
+	var roomTextures = [];
+
+	var room_wallpaper = new THREE.MeshLambertMaterial({
+		color: 0xFF0000,
+		side: THREE.BackSide
+	});
+
+	for(var i = 0; i < 6; i++){
+		roomTextures.push(room_wallpaper);
+	}
+
+	var room = new THREE.Mesh(
+		new THREE.BoxGeometry(
+			worldSize,
+			worldSize,
+			worldSize
+		),
+		new THREE.MeshFaceMaterial(roomTextures)
+	);
+
+	scene.add(room);
 
 	light = new THREE.Object3D();
 
