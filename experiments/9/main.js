@@ -96,7 +96,7 @@ var fullscreen_button = document.querySelector('button#fullscreen');
 fullscreen_button.addEventListener('click', goFullscreen);
 
 function goFullscreen() {
-    document.querySelector("canvas").webkitRequestFullScreen();
+	document.querySelector("canvas").webkitRequestFullScreen();
 }
 
 // Normal scene setup, then...
@@ -106,10 +106,12 @@ function onFullscreen() {
   // vrEffect.setFullScreen(true);
 }
 
-// function onResize() {
-//   renderer.setSize(window.innerWidth, window.innerHeight);
-// }
-// window.addEventListener("resize", onResize);
+function onResize() {
+	renderer.setSize(window.innerWidth, window.innerHeight);
+	camera.aspect	= window.innerWidth / window.innerHeight;
+	camera.updateProjectionMatrix();
+}
+window.addEventListener("resize", onResize);
 
 function loop() {
   vrControls.update();
