@@ -4,6 +4,8 @@ THREE.VRRenderer = function(renderer, hmd) {
 
     var self = this;
 
+    self.renderer = renderer;
+
     self.initialize = function() {
         var epLeft = hmd.getEyeParameters("left");
         var epRight = hmd.getEyeParameters("right");
