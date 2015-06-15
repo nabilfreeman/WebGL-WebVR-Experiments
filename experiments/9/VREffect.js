@@ -46,6 +46,7 @@ THREE.VREffect = function ( renderer, done ) {
 			for ( var i = 0; i < devices.length; ++ i ) {
 				if ( devices[i] instanceof HMDVRDevice ) {
 					vrHMD = devices[i];
+					window.hey = vrHMD;
 					self._vrHMD = vrHMD;
 					self.leftEyeTranslation = vrHMD.getEyeTranslation( "left" );
 					self.rightEyeTranslation = vrHMD.getEyeTranslation( "right" );
