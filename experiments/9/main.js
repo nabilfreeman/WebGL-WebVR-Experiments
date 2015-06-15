@@ -13,6 +13,29 @@ var scene = new THREE.Scene();
 
 var objects = {};
 
+//if vr device is available, overwrite our renderer with a stereoscopic version
+function attachVRHeadset(vrs) {
+	for (var i = 0; i < vrs.length; ++i) {
+		if (vrs[i] instanceof HMDVRDevice) {
+			vrHMD = vrs[i];
+			break;
+		}
+	}
+	for (var i = 0; i < vrs.length; ++i) {
+		if (vrs[i] instanceof PositionSensorVRDevice &&
+			vrs[i].hardwareUnitId == vrHMD.hardwareUnitId) {
+			vrHMDSensor = vrs[i];
+			break;
+		}
+	}
+
+	renderer = new THREE.VRRenderer(renderer, vrHMD);
+}
+
+if (navigator.getVRDevices){
+	navigator.getVRDevices().then(attachVRHeadset);
+}
+
 function createScene() {
 
 	light = new THREE.Object3D();
@@ -54,20 +77,19 @@ function goFullscreen() {
 
 // Normal scene setup, then...
 var vrControls = new THREE.VRControls(camera);
-var vrEffect = new THREE.VREffect(renderer);
 
 function onFullscreen() {
-  vrEffect.setFullScreen(true);
+  // vrEffect.setFullScreen(true);
 }
 
 function onResize() {
-  vrEffect.setSize(window.innerWidth, window.innerHeight);
+  renderer.setSize(window.innerWidth, window.innerHeight);
 }
 window.addEventListener("resize", onResize);
 
 function loop() {
   vrControls.update();
-  vrEffect.render(scene, camera);
+  renderer.render(scene, camera);
   // requestAnimationFrame(loop);
 }
 
