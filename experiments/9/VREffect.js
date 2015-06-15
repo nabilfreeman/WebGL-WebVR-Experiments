@@ -45,13 +45,17 @@ THREE.VREffect = function ( renderer, done ) {
 			var error;
 			for ( var i = 0; i < devices.length; ++ i ) {
 				if ( devices[i] instanceof HMDVRDevice ) {
+					
 					vrHMD = devices[i];
-					window.hey = vrHMD;
 					self._vrHMD = vrHMD;
-					self.leftEyeTranslation = vrHMD.getEyeTranslation( "left" );
-					self.rightEyeTranslation = vrHMD.getEyeTranslation( "right" );
-					self.leftEyeFOV = vrHMD.getRecommendedEyeFieldOfView( "left" );
-					self.rightEyeFOV = vrHMD.getRecommendedEyeFieldOfView( "right" );
+
+					var eyeParamsLeft = vrHMD.getEyeParameters( 'left' );
+				    var eyeParamsRight = vrHMD.getEyeParameters( 'right' );
+
+					self.leftEyeTranslation = eyeParamsLeft.eyeTranslation;
+					self.rightEyeTranslation = eyeParamsRight.eyeTranslation;
+					self.leftEyeFOV = eyeParamsLeft.recommendedFieldOfView;
+					self.rightEyeFOV = eyeParamsRight.recommendedFieldOfView;
 					break; // We keep the first we encounter
 				}
 			}
