@@ -61,6 +61,8 @@ function createScene() {
 		new THREE.MeshFaceMaterial(roomTextures)
 	);
 
+	room.position.z = 250;
+
 	scene.add(room);
 
 	light = new THREE.Object3D();
@@ -79,12 +81,10 @@ function createScene() {
 	scene.add( light );
 
 	var bulb = new THREE.Mesh(
-		new THREE.TorusKnotGeometry(worldSize / 4, worldSize / 4 / 2, 60, 60), 
+		new THREE.TorusKnotGeometry(worldSize / 10, worldSize / 10 / 2, 60, 60), 
 		new THREE.MeshNormalMaterial( { color: 0xFFFF00 } ) 
 	);
 	// bulb.rotation.x = 90 * (Math.PI / 180);
-
-	bulb.position.z = -(worldSize - 50);
 
 	scene.add(bulb);
 
