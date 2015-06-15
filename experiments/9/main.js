@@ -15,16 +15,41 @@ var objects = {};
 
 function createScene() {
 
-	var roomTextures = [];
+	var roomTextures = [
+		new THREE.MeshLambertMaterial({
+			color: 0xFF0000,
+			side: THREE.BackSide
+		}),
+		new THREE.MeshLambertMaterial({
+			color: 0x00FF00,
+			side: THREE.BackSide
+		}),
+		new THREE.MeshLambertMaterial({
+			color: 0x0000FF,
+			side: THREE.BackSide
+		}),
+		new THREE.MeshLambertMaterial({
+			color: 0xFF00FF,
+			side: THREE.BackSide
+		}),
+		new THREE.MeshLambertMaterial({
+			color: 0xFFFF00,
+			side: THREE.BackSide
+		}),
+		new THREE.MeshLambertMaterial({
+			color: 0x00FFFF,
+			side: THREE.BackSide
+		}),
+	];
 
-	var room_wallpaper = new THREE.MeshLambertMaterial({
-		color: 0xFF0000,
-		side: THREE.BackSide
-	});
+	// var room_wallpaper = new THREE.MeshLambertMaterial({
+	// 	color: 0xFF0000,
+	// 	side: THREE.BackSide
+	// });
 
-	for(var i = 0; i < 6; i++){
-		roomTextures.push(room_wallpaper);
-	}
+	// for(var i = 0; i < 6; i++){
+	// 	roomTextures.push(room_wallpaper);
+	// }
 
 	var room = new THREE.Mesh(
 		new THREE.BoxGeometry(
