@@ -31,7 +31,7 @@ function createScene() {
 	scene.add( light );
 
 	objects.bulb = new THREE.Mesh(
-		new THREE.TorusKnotGeometry(4, 1, 60, 60), 
+		new THREE.TorusKnotGeometry(2, 0.5, 20, 20), 
 		new THREE.MeshNormalMaterial( { color: 0xFFFF00 } ) 
 	);
 	// bulb.rotation.x = 90 * (Math.PI / 180);
