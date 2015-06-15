@@ -61,6 +61,8 @@ function createScene() {
 		new THREE.MeshFaceMaterial(roomTextures)
 	);
 
+	room.position.x = 0;
+	room.position.y = 0;
 	room.position.z = 250;
 
 	scene.add(room);
