@@ -13,31 +13,6 @@ var scene = new THREE.Scene();
 
 var objects = {};
 
-//if vr device is available, overwrite our renderer with a stereoscopic version
-function attachVRHeadset(vrs) {
-	console.log("vr mode");
-
-	for (var i = 0; i < vrs.length; ++i) {
-		if (vrs[i] instanceof HMDVRDevice) {
-			vrHMD = vrs[i];
-			break;
-		}
-	}
-	for (var i = 0; i < vrs.length; ++i) {
-		if (vrs[i] instanceof PositionSensorVRDevice &&
-			vrs[i].hardwareUnitId == vrHMD.hardwareUnitId) {
-			vrHMDSensor = vrs[i];
-			break;
-		}
-	}
-
-	renderer = new THREE.VRRenderer(renderer, vrHMD);
-}
-
-if (navigator.getVRDevices){
-	navigator.getVRDevices().then(attachVRHeadset);
-}
-
 function createScene() {
 
 	light = new THREE.Object3D();
@@ -96,3 +71,28 @@ function loop() {
 }
 
 setInterval(loop, 50);
+
+//if vr device is available, overwrite our renderer with a stereoscopic version
+function attachVRHeadset(vrs) {
+	console.log("vr mode");
+
+	for (var i = 0; i < vrs.length; ++i) {
+		if (vrs[i] instanceof HMDVRDevice) {
+			vrHMD = vrs[i];
+			break;
+		}
+	}
+	for (var i = 0; i < vrs.length; ++i) {
+		if (vrs[i] instanceof PositionSensorVRDevice &&
+			vrs[i].hardwareUnitId == vrHMD.hardwareUnitId) {
+			vrHMDSensor = vrs[i];
+			break;
+		}
+	}
+
+	renderer = new THREE.VRRenderer(renderer, vrHMD);
+}
+
+if (navigator.getVRDevices){
+	navigator.getVRDevices().then(attachVRHeadset);
+}
