@@ -1,3 +1,5 @@
+document.documentElement.requestFullScreen = document.documentElement.requestFullScreen || document.documentElement.webkitRequestFullScreen || document.documentElement.mozRequestFullScreen;
+
 var worldSize = 1000;
 
 var renderer = new THREE.WebGLRenderer();
@@ -29,11 +31,9 @@ function createScene() {
 	camera_wrapper.position.x = 400;
 	camera_wrapper.position.y = 400;
 
-	camera_wrapper.rotation.z += one_degree*45;
-
-	//lying down mode!
-	camera_wrapper.rotation.x -= one_degree*90;
-
+	camera_wrapper.rotation.x = 0;
+	camera_wrapper.rotation.y = one_degree*45;
+	camera_wrapper.rotation.z = 0;
 
 
 	window.roomTextures = [];
@@ -117,11 +117,25 @@ function createScene() {
 
 createScene();
 
-var fullscreen_button = document.querySelector('button#fullscreen');
+var lyingdown_button = document.querySelector("li#lyingdown");
+lyingdown_button.addEventListener("click", function(){
+	if(camera_wrapper.rotation.x === 0){
+		camera_wrapper.rotation.x = -one_degree*90;
+		camera_wrapper.rotation.y = 0;
+		camera_wrapper.rotation.z = one_degree*45;
+
+	} else {
+		camera_wrapper.rotation.x = 0;
+		camera_wrapper.rotation.y = one_degree*45;
+		camera_wrapper.rotation.z = 0;
+	}
+});
+
+var fullscreen_button = document.querySelector('li#fullscreen');
 fullscreen_button.addEventListener('click', goFullscreen);
 
 function goFullscreen() {
-	document.querySelector("canvas").webkitRequestFullScreen();
+	document.documentElement.requestFullScreen();
 }
 
 // Normal scene setup, then...
