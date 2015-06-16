@@ -2,7 +2,7 @@ var worldSize = 1000;
 
 var renderer = new THREE.WebGLRenderer();
 renderer.setClearColor( 0x000000 );
-// renderer.setPixelRatio( window.devicePixelRatio );
+renderer.setPixelRatio( window.devicePixelRatio );
 renderer.setSize( window.innerWidth, window.innerHeight );
 renderer.shadowMapEnabled = true;
 renderer.shadowMapType = THREE.PCFSoftShadowMap;
@@ -16,14 +16,22 @@ var objects = {};
 
 function createScene() {
 
+	var world = new THREE.Object3D();
+
 	camera_wrapper = new THREE.Object3D();
 	camera_wrapper.add(camera);
 
-	scene.add(camera_wrapper);
+	world.add(camera_wrapper);
 
 	camera_wrapper.position.z = 400;
 	camera_wrapper.position.x = 400;
 	camera_wrapper.position.y = 400;
+
+	camera_wrapper.rotation.z += (Math.PI * 45)/180;
+	camera_wrapper.rotation.y -= (Math.PI * 45)/180;
+
+	//lying down mode!
+	camera_wrapper.rotation.x -= (Math.PI * 90)/180;
 
 
 
@@ -52,7 +60,7 @@ function createScene() {
 		new THREE.MeshFaceMaterial(roomTextures)
 	);
 
-	scene.add(room);
+	world.add(room);
 
 	light = new THREE.Object3D();
 
@@ -67,7 +75,7 @@ function createScene() {
 	
 	light.position.y = (worldSize) - 30;
 
-	scene.add( light );
+	world.add( light );
 
 	var bulb = new THREE.Mesh(
 		new THREE.BoxGeometry(100, 100, 100), 
@@ -75,13 +83,16 @@ function createScene() {
 	);
 	// bulb.rotation.x = 90 * (Math.PI / 180);
 
-	scene.add(bulb);
+	world.add(bulb);
 
 	bulb.castShadow = true;
 
 
+	objects.world = world;
 	objects.room = room;
 	objects.bulb = bulb;
+
+	scene.add(world);
 
 }
 
@@ -103,7 +114,7 @@ function onFullscreen() {
 
 function onResize() {
 	renderer.setSize(window.innerWidth, window.innerHeight);
-	camera.aspect	= window.innerWidth / window.innerHeight;
+	camera.aspect	= window.innerWidth / window.innerHeight / window.devicePixelRatio;
 	camera.updateProjectionMatrix();
 }
 window.addEventListener("resize", onResize);
