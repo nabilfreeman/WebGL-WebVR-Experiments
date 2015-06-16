@@ -8,7 +8,7 @@ renderer.shadowMapEnabled = true;
 renderer.shadowMapType = THREE.PCFSoftShadowMap;
 document.body.appendChild( renderer.domElement );
 
-var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 10000 );
+var camera_wrapper, camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 10000 );
 
 var scene = new THREE.Scene();
 
@@ -16,7 +16,14 @@ var objects = {};
 
 function createScene() {
 
-	camera.position.z = 250;
+	camera_wrapper = new THREE.Object3D();
+	camera_wrapper.add(camera);
+
+	scene.add(camera_wrapper);
+
+	camera_wrapper.position.z = 250;
+
+
 
 	window.roomTextures = [];
 
@@ -61,7 +68,7 @@ function createScene() {
 	scene.add( light );
 
 	var bulb = new THREE.Mesh(
-		new THREE.BoxGeometry(20, worldSize / 20, worldSize / 20), 
+		new THREE.BoxGeometry(20, 20, 20), 
 		new THREE.MeshLambertMaterial( { color: 0x008CFF } ) 
 	);
 	// bulb.rotation.x = 90 * (Math.PI / 180);
