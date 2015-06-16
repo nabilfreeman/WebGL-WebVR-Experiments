@@ -14,6 +14,8 @@ var scene = new THREE.Scene();
 
 var objects = {};
 
+var one_degree = (Math.PI / 180);
+
 function createScene() {
 
 	var world = new THREE.Object3D();
@@ -27,17 +29,16 @@ function createScene() {
 	camera_wrapper.position.x = 400;
 	camera_wrapper.position.y = 400;
 
-	camera_wrapper.rotation.z += (Math.PI * 45)/180;
-	camera_wrapper.rotation.y -= (Math.PI * 45)/180;
+	camera_wrapper.rotation.z += one_degree*45;
 
 	//lying down mode!
-	camera_wrapper.rotation.x -= (Math.PI * 90)/180;
+	camera_wrapper.rotation.x -= one_degree*90;
 
 
 
 	window.roomTextures = [];
 
-	var wallTexture = THREE.ImageUtils.loadTexture( 'wood.png' );
+	var wallTexture = THREE.ImageUtils.loadTexture( 'planks_spruce.png' );
 	wallTexture.wrapS = wallTexture.wrapT = THREE.RepeatWrapping;
 	wallTexture.repeat.set(4,4);
 	for(var i = 0; i < 6; i++){
@@ -50,6 +51,14 @@ function createScene() {
 
 		roomTextures[i].receiveShadow = true;
 	}
+
+	var floorTexture = THREE.ImageUtils.loadTexture( 'grass_top.png' );
+	floorTexture.wrapS = floorTexture.wrapT = THREE.RepeatWrapping;
+	floorTexture.repeat.set(4,4);
+	roomTextures[3] = new THREE.MeshBasicMaterial({
+		map: floorTexture,
+		side: THREE.BackSide
+	});
 
 	var room = new THREE.Mesh(
 		new THREE.BoxGeometry(
@@ -77,19 +86,29 @@ function createScene() {
 
 	world.add( light );
 
+
+	var bulb_pivot = new THREE.Object3D();
+
 	var bulb = new THREE.Mesh(
 		new THREE.BoxGeometry(100, 100, 100), 
-		new THREE.MeshLambertMaterial( { color: 0x008CFF } ) 
+		new THREE.MeshLambertMaterial({
+			map: THREE.ImageUtils.loadTexture( 'endframe_top.png' )
+		}) 
 	);
-	// bulb.rotation.x = 90 * (Math.PI / 180);
 
-	world.add(bulb);
+	bulb.rotation.x = 35*one_degree;
+	bulb.rotation.z = 45*one_degree;
+
+	bulb_pivot.add(bulb);
+
+	world.add(bulb_pivot);
 
 	bulb.castShadow = true;
 
 
 	objects.world = world;
 	objects.room = room;
+	objects.bulb_pivot = bulb_pivot;
 	objects.bulb = bulb;
 
 	scene.add(world);
@@ -119,14 +138,25 @@ function onResize() {
 }
 window.addEventListener("resize", onResize);
 
-var one_degree = (Math.PI / 180);
+
+var fast_or_slow = 1; //default to accelerate, -1 = decelerate.
+var rotation_amount = 0.5*one_degree;
 
 function loop() {
 	vrControls.update();
 	renderer.render(scene, camera);
 
-	objects.bulb.rotation.z += one_degree;
-	objects.bulb.rotation.x += one_degree;
+	if(rotation_amount > 40*one_degree){
+		fast_or_slow = -1;
+	}
+
+	if(rotation_amount < 0.5*one_degree){
+		fast_or_slow = 1;
+	}
+
+	rotation_amount *= (1 + (0.01 * fast_or_slow));
+
+	objects.bulb_pivot.rotation.y += rotation_amount;
 
 	requestAnimationFrame(loop);
 }
