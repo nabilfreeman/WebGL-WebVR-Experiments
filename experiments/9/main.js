@@ -90,7 +90,7 @@ function createScene() {
 	var bulb_pivot = new THREE.Object3D();
 
 	var bulb = new THREE.Mesh(
-		new THREE.BoxGeometry(100, 100, 100), 
+		new THREE.BoxGeometry(200, 200, 200), 
 		new THREE.MeshLambertMaterial({
 			map: THREE.ImageUtils.loadTexture( 'endframe_top.png' )
 		}) 
