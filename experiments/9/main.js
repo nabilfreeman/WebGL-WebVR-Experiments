@@ -21,7 +21,9 @@ function createScene() {
 
 	scene.add(camera_wrapper);
 
-	camera_wrapper.position.z = 250;
+	camera_wrapper.position.z = 500;
+	camera_wrapper.position.x = -500;
+	camera_wrapper.position.y = 500;
 
 
 
@@ -110,7 +112,7 @@ var one_degree = (Math.PI / 180);
 
 function loop() {
 	vrControls.update();
-	renderer.render(scene, camera, camera_wrapper);
+	renderer.render(scene, camera);
 	requestAnimationFrame(loop);
 
 	objects.bulb.rotation.z += one_degree;
@@ -137,7 +139,7 @@ function attachVRHeadset(vrs) {
 		}
 	}
 
-	renderer = new THREE.VRRenderer(renderer, vrHMD);
+	renderer = new THREE.VRRenderer(renderer, vrHMD, camera_wrapper);
 }
 
 if (navigator.getVRDevices){
