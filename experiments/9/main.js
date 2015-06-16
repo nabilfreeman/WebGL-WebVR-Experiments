@@ -21,9 +21,9 @@ function createScene() {
 
 	scene.add(camera_wrapper);
 
-	camera_wrapper.position.z = 500;
-	camera_wrapper.position.x = -500;
-	camera_wrapper.position.y = 500;
+	camera_wrapper.position.z = 400;
+	camera_wrapper.position.x = 400;
+	camera_wrapper.position.y = 400;
 
 
 
@@ -70,7 +70,7 @@ function createScene() {
 	scene.add( light );
 
 	var bulb = new THREE.Mesh(
-		new THREE.BoxGeometry(20, 20, 20), 
+		new THREE.BoxGeometry(100, 100, 100), 
 		new THREE.MeshLambertMaterial( { color: 0x008CFF } ) 
 	);
 	// bulb.rotation.x = 90 * (Math.PI / 180);
