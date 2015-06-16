@@ -22,6 +22,21 @@ function createScene() {
 
 	var world = new THREE.Object3D();
 
+
+	var test_cube = new THREE.Mesh(
+		new THREE.BoxGeometry(5, 5, 5),
+		new THREE.MeshBasicMaterial({
+			color: 0xFF0000,
+			side: THREE.BackSide
+		})
+	);
+
+	test_cube.position.z = -200;
+
+	camera.add(test_cube);
+
+
+
 	camera_wrapper = new THREE.Object3D();
 	camera_wrapper.add(camera);
 
