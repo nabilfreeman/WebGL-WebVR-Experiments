@@ -110,7 +110,7 @@ var one_degree = (Math.PI / 180);
 
 function loop() {
 	vrControls.update();
-	renderer.render(scene, camera);
+	renderer.render(scene, camera, camera_wrapper);
 	requestAnimationFrame(loop);
 
 	objects.bulb.rotation.z += one_degree;

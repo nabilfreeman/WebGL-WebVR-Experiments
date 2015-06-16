@@ -1,6 +1,6 @@
 "use strict";
 
-THREE.VRRenderer = function(renderer, hmd) {
+THREE.VRRenderer = function(renderer, hmd, parent) {
 
 	var self = this;
 
@@ -70,6 +70,12 @@ THREE.VRRenderer = function(renderer, hmd) {
 	self.render = function(scene, camera) {
 		var cameraLeft = camera.clone();
 		var cameraRight = camera.clone();
+
+		if(parent !== undefined){
+			parent.add(cameraLeft);
+			parent.add(cameraRight);
+		}
+
 		cameraLeft.projectionMatrix = self.FovToProjection(self.fovLeft, true, camera.near, camera.far);
 		cameraRight.projectionMatrix = self.FovToProjection(self.fovRight, true, camera.near, camera.far);
 		var right = new THREE.Vector3(1, 0, 0);
