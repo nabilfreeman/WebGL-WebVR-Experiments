@@ -2,7 +2,7 @@ var worldSize = 1000;
 
 var renderer = new THREE.WebGLRenderer();
 renderer.setClearColor( 0x000000 );
-renderer.setPixelRatio( window.devicePixelRatio );
+// renderer.setPixelRatio( window.devicePixelRatio );
 renderer.setSize( window.innerWidth, window.innerHeight );
 renderer.shadowMapEnabled = true;
 renderer.shadowMapType = THREE.PCFSoftShadowMap;
