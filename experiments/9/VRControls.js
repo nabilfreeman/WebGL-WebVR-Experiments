@@ -51,6 +51,8 @@ THREE.VRControls = function ( object, callback ) {
 
 		if ( vrInput === undefined ) return;
 
+		scope.vrInput = vrInput;
+
 		var state = vrInput.getState();
 
 		if ( state.orientation !== null ) {
@@ -71,7 +73,7 @@ THREE.VRControls = function ( object, callback ) {
 
 		if ( vrInput === undefined ) return;
 
-		vrInput.zeroSensor();
+		vrInput.resetSensor();
 
 	};
 

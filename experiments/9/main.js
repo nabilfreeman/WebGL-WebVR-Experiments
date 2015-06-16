@@ -126,6 +126,7 @@ function goFullscreen() {
 
 // Normal scene setup, then...
 var vrControls = new THREE.VRControls(camera);
+vrControls.zeroSensor();
 
 function onFullscreen() {
   // vrEffect.setFullScreen(true);
