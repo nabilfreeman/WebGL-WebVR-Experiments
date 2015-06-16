@@ -61,7 +61,7 @@ function createScene() {
 	scene.add( light );
 
 	var bulb = new THREE.Mesh(
-		new THREE.BoxGeometry(worldSize / 10, worldSize / 10, worldSize / 10), 
+		new THREE.BoxGeometry(20, worldSize / 20, worldSize / 20), 
 		new THREE.MeshLambertMaterial( { color: 0x008CFF } ) 
 	);
 	// bulb.rotation.x = 90 * (Math.PI / 180);
