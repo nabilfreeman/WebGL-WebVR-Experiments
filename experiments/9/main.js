@@ -16,32 +16,23 @@ var objects = {};
 
 function createScene() {
 
-	var roomTextures = [
-		new THREE.MeshLambertMaterial({
-			color: 0xFF0000,
-			side: THREE.BackSide
-		}),
-		new THREE.MeshLambertMaterial({
-			color: 0x00FF00,
-			side: THREE.BackSide
-		}),
-		new THREE.MeshLambertMaterial({
-			color: 0x0000FF,
-			side: THREE.BackSide
-		}),
-		new THREE.MeshLambertMaterial({
-			color: 0xFF00FF,
-			side: THREE.BackSide
-		}),
-		new THREE.MeshLambertMaterial({
-			color: 0xFFFF00,
-			side: THREE.BackSide
-		}),
-		new THREE.MeshLambertMaterial({
-			color: 0x00FFFF,
-			side: THREE.BackSide
-		}),
-	];
+	camera.position.z = 250;
+
+	window.roomTextures = [];
+
+	var wallTexture = THREE.ImageUtils.loadTexture( 'wood.png' );
+	wallTexture.wrapS = wallTexture.wrapT = THREE.RepeatWrapping;
+	wallTexture.repeat.set(4,4);
+	for(var i = 0; i < 6; i++){
+		roomTextures.push(
+			new THREE.MeshLambertMaterial({
+				map: wallTexture,
+				side: THREE.BackSide
+			})
+		);
+
+		roomTextures[i].receiveShadow = true;
+	}
 
 	var room = new THREE.Mesh(
 		new THREE.BoxGeometry(
@@ -51,8 +42,6 @@ function createScene() {
 		),
 		new THREE.MeshFaceMaterial(roomTextures)
 	);
-
-	room.position.z = 250;
 
 	scene.add(room);
 
@@ -72,14 +61,14 @@ function createScene() {
 	scene.add( light );
 
 	var bulb = new THREE.Mesh(
-		new THREE.BoxGeometry(worldSize / 10, worldSize / 10, worldSize / 20), 
-		new THREE.MeshNormalMaterial( { color: 0xFFFF00 } ) 
+		new THREE.BoxGeometry(worldSize / 10, worldSize / 10, worldSize / 10), 
+		new THREE.MeshLambertMaterial( { color: 0x008CFF } ) 
 	);
 	// bulb.rotation.x = 90 * (Math.PI / 180);
 
-	bulb.position.z = 750;
-
 	scene.add(bulb);
+
+	bulb.castShadow = true;
 
 
 	objects.room = room;
@@ -110,13 +99,15 @@ function onResize() {
 }
 window.addEventListener("resize", onResize);
 
-function loop() {
-  vrControls.update();
-  renderer.render(scene, camera);
-  requestAnimationFrame(loop);
+var one_degree = (Math.PI / 180);
 
-  objects.bulb.rotation.z += (Math.Pi * 2) / 180;
-  objects.bulb.rotation.x += (Math.Pi * 2) / 180;
+function loop() {
+	vrControls.update();
+	renderer.render(scene, camera);
+	requestAnimationFrame(loop);
+
+	objects.bulb.rotation.z += one_degree;
+	objects.bulb.rotation.x += one_degree;
 }
 
 loop();
